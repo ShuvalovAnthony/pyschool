@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{% block title %} Courses {% endblock %}</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="/">PYSCHOOL</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul id="menu">
+                <li><a class="{% if request.path == '/' %}active{% endif %}" href="/">Главная</a></li>
+                <li><a class="{% if 'courses' in request.path %}active{% endif %}" href="/courses">Курсы</a></li>
+                {% if user.is_authenticated %}
+                <li><a class="{% if 'my_crss' in request.path %}active{% endif %}" href="/my_crss">Мои курсы</a></li>
+                {% endif %}
+                <li><a class="{% if 'pricing' in request.path %}active{% endif %}" href="/pricing">Цены</a></li>
+                <li><a class="{% if 'contact' in request.path %}active{% endif %}" href="/contact">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li><a class="{% if 'profile' in request.path %}active{% endif %}" href="/profile">Профиль</a></li>
+                <li><a class="{% if 'logout' in request.path %}active{% endif %}" href="/logout">Выйти</a></li>
+                {% endif %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="get-started-btn">Войти</a>
+        {% endif %}
+
+    </div>
+</header><!-- End Header -->
+
+{% if messages %}
+{% for msg in messages %}
+
+<div class="alert alert-primary" role="alert">
+    {{ msg }}
+</div>
+
+{%endfor %}
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-md-6 footer-contact">
+                    <h3><font color="#5263d1">PYSCHOOL</font></h3>
+                    <p>
+                        <strong>Phone:</strong> +7 903 187 34 62<br>
+                        <strong>Email:</strong> anthony.shuvalov@mail.ru<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Ссылки</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/">Главная</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/courses">Курсы</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/contact">Контакты</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                 <strong><span>2020-2021</span></strong>
+            </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="//instagram.com/pyschool.ru" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+{% block add_script %}
+{% endblock %}
+</html>

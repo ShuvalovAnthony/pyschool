@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+  <main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h1>{{ single_course.title }}</h1>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Cource Details Section ======= -->
+    <section id="course-details" class="course-details">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>Описание курса</h3>
+            <p>
+              {{ single_course.category_landing|safe }}
+            </p>
+          </div>
+          <div class="col-lg-4">
+
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Преподаватель</h5>
+              <p><a href="#">{{ single_course.tutor }}</a></p>
+            </div>
+
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Стоимость курса, ₽/мес.</h5>
+              <p>{{ single_course.price }}</p>
+            </div>
+
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Учеников в группе</h5>
+              <p>{{ single_course.number_of_members }}</p>
+            </div>
+
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Возраст, лет</h5>
+              <p>12 - 14</p>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basiceModal">
+              <h1>Записаться на курс</h1>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section><!-- End Cource Details Section -->
+
+    
+    <!-- ======= Cource Details Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" ><h3>Список тем</h3></a>
+              </li>
+              {% for lesson in lessons %}
+              <li class="nav-item">
+                <a class="nav-link show" data-toggle="tab">{{ lesson.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="{{ lesson.title }}">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{ lesson.title }}</h3>
+                    <p>{{ single_course.description }}</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="assets/img/course-details-tab-1.png" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Cource Details Tabs Section -->
+
+    <div class="modal fade" id="basiceModal" tabindex="-1" aria-labelledby="basicModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="basicModalLabel">Записаться на курс</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" class="post-form">
+              {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                {{ form.name }}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.email }}
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              {{ form.phone }}
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-primary btn-block" type="submit">Отправить заявку</button>    
+            </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- End #main -->
+
+
+{% endblock %}
+{% block add_script %}
+<script>
+  var myModal = new bootstrap.Modal(document.getElementById('basiceModal'), options)
+</script>
+{% endblock %}

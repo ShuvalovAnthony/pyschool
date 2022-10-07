@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h1>{{ lesson.title }}</h1>
+        </div>
+    </div><!-- End Breadcrumbs -->
+
+
+    <!-- ======= Cource Details Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <ul class="nav nav-tabs flex-column">
+                        <li class="nav-item">
+                            <p>
+                            <h3>Список тем</h3>
+                        </li>
+                        {% for i in lessons %}
+                        {% if i.category == lesson.category %}
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-toggle="tab" href="/lesson/{{ i.slug }}">{{ i.title }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    <a class="btn btn-success"
+                       id="completed_lessons"
+                       data-user_profile_id="{{ user.profile.id }}"
+                       data-course_slug="{{ lesson.category.slug }}"
+                       data-last_lesson="{{ request.path|cut:'/lesson/' }}">
+                        Урок пройден
+                    </a>
+
+                </div>
+                <div class="col-lg-9 mt-4 mt-lg-0">
+                    <div class="tab-content">
+                        <div class="tab-pane active show" id="{{ lesson.title }}">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-1">
+                                    <br>
+                                    <p>{{ lesson.category }}</p>
+                                    <br>
+                                    <p>{{ lesson.content|safe }}</p>
+                                </div>
+                                <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    <img src="assets/img/course-details-tab-1.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Cource Details Tabs Section -->
+
+</main><!-- End #main -->
+
+
+{% endblock %}
+
+{% block add_script %}
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="{% static  'assets/js/last_lesson.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h1>Контакты</h1>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Москва</h4>
+                <p>Профсоюзная 156, к. 6</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>anthony.shuvalov@mail.ru</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Телефон:</h4>
+                <p>+7 903 187 34 62</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+            <form method="post" class="post-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  {{ contact_form.name }}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  {{ contact_form.email }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                {{ contact_form.subject }}
+              </div>
+              <div class="form-group mt-3">
+                {{ contact_form.content }}
+              </div>
+              <div class="text-center"><button class="get-started-btn" type="submit">Отправить сообщение</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}

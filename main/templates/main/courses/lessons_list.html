@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h1>{{ title }}</h1>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <div>
+      <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Cource Details Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <nav>
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a><h3>Список тем</h3></a>
+              </li>
+              {% for lesson in lessons reversed %}
+              <a href="{{ lesson.slug}}">{{ lesson.title}}</a>
+              {% endfor %}
+            </ul>
+            </nav>
+              </div>
+                <div class="col-lg-9 mt-4 mt-lg-0">
+                  <div class="tab-content">
+                    {% for lesson in lessons reversed %}
+                    <div class="tab-pane fade {% if lesson.id == 1 %} show active {% endif %}" id="{{ lesson.title }}" role="tabpanel" aria-labelledby="{{ lesson.title }}">{{ lesson.content|truncatewords:100|safe }}</div>
+                    {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Cource Details Tabs Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
